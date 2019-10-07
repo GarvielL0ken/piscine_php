@@ -1,0 +1,97 @@
+* {
+    background-color: rgb(80, 80, 80);
+}
+
+.card {
+    background-color: rgb(144, 144, 144);
+    box-shadow: 10px 10px 5px black;
+    border-radius: 10px;
+}
+
+.top {
+    height: auto;
+    margin: auto;
+    margin-top: 1%;
+    padding: 1%;
+    position: relative;
+    width: 75%;
+    z-index: 1;
+}
+
+.main {
+    display: inline-block;
+    width: 70%;
+    height: 50%;
+    margin-left: 15%;;
+    margin-top: 2%;
+}
+
+.side {
+    width: 7%;
+    height: auto;
+    padding: 1%;
+    float: left;
+    text-align: center;
+}
+
+.middle {
+    width: 76%;
+    height: auto;
+    padding: 1%;
+    float: left;
+    margin-left: 2%;
+    margin-right: 2%;
+    z-index: 1;
+}
+
+.right {
+    padding-bottom: 11.35%;
+}
+
+.side-image {
+    width: 75%;
+}
+
+.transparent {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#close {
+    background-color: rgba(0, 0, 0, 0);
+    width: 60%;
+    margin-top: 150%;
+    margin-left: 40%;
+}
+
+#cluster {
+    background-color: rgba(0, 0, 0, 0);
+    width: 98%;
+    height: auto;
+    margin-left: 1%;
+}
+
+#doft {
+    display: inline-block;
+    width: 30%;
+}
+
+#loupe {
+    background-color: rgba(0, 0, 0, 0);
+    margin-left: 45%;
+    position: absolute;
+    width: 20%;
+    z-index: 2;
+}
+
+#reload {
+    background-color: rgba(0, 0, 0, 0);
+    width: 60%;
+    margin-left: 40%;
+}
+
+#card-top-right {
+    background-color: rgba(0, 0, 0, 0);
+    height: auto;
+    float: right;
+    width: 3%;
+}
