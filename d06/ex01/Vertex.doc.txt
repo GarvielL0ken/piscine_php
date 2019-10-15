@@ -1,0 +1,10 @@
+<- Vertex ----------------------------------------------------------------------
+The Vertex class has five attributes/properties:
+    _x:     The x co-ordinate of a vertex.
+    _y:     The y co-ordinate of a vertex.
+    _z:     The z co-ordinate of a vertex.
+    _w:     Used to scale the x, y, and z co-ordinates of a vertex.
+    _color: An instance of the class color. see Color.doc.txt.
+
+
+---------------------------------------------------------------------- Vertex ->
