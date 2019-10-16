@@ -6,5 +6,16 @@ The Vertex class has five attributes/properties:
     _w:     Used to scale the x, y, and z co-ordinates of a vertex.
     _color: An instance of the class color. see Color.doc.txt.
 
+    All of the above attributes are private (hence the '_' prefix) and as such 
+    all attributes are accessible via the 'magic' __get() and __set() methods.
 
+    The constructor method takes and array. The madatory keys of this array
+    are 'x', 'y', 'z'. The optional keys are 'w' and 'color'. The default value
+    for _w is 1. The default value for _color is an instance of the class Color
+    which has the rgb values (255, 255, 255) (in other words white).
+
+    eg.
+    $obj_Vertex_0 = new obj_Vertex_0(array('x' => 0, 'y' => 0, 'z' = 0))
+    $obj_Vertex_1 = new Vertex(array( 'x' => 0.0, 'y' => 0.0, 'z' => 1.0, 
+    'color' => $blue  ))
 ---------------------------------------------------------------------- Vertex ->

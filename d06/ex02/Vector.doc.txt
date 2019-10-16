@@ -1,2 +1,17 @@
 <- Vector ----------------------------------------------------------------------
+The Vector class has five attributes/properties:
+    _x:     The x co-ordinate of a vector.
+    _y:     The y co-ordinate of a vector.
+    _z:     The z co-ordinate of a vector.
+    _w:     The w co-ordinate of a vector.
+
+    All of the above attributes are private (hence the '_' prefix) and as such 
+    all attributes are accessible via the 'magic' __get() method. No write
+    accessor method are available.
+
+    The constructor method takes and array. The madatory key of this array
+    'dest'. 'dest' must be an instance of a Vertex. The optional key is 'orig'.
+    The default value for 'orig' is an  instance of a Vertex (0, 0, 0, 1).
+
+    eg. $vertex = new Vector(array('dest' => $vert_dest, 'orig' => $vert_orig))
 ---------------------------------------------------------------------- Vector ->
