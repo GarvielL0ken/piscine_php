@@ -10,37 +10,47 @@
         const RX =          'RX';
         const RY =          'RY';
         const RZ =          'RZ';
-        const TRANSLATION = 'TRANLATION';
+        const TRANSLATION = 'TRANSLATION';
         const PROJECTION =  'PROJECTION';
         static $verbose =   false;
         private $_matrix;
 
         function __construct($arr_data)
         {
-            $this->_matrix = array( 'x' => array(0.0, 0.0, 0.0, 0.0),
-                                    'y' => array(0.0, 0.0, 0.0, 0.0), 
-                                    'z' => array(0.0, 0.0, 0.0, 0.0), 
-                                    'w' => array(0.0, 0.0, 0.0, 0.0));
+            $this->initialize_matrix();
             if ($arr_data['preset'] == SELF::IDENTITY)
-            {
-                $this->_matrix['x'][0] = 1.0;
-                $this->_matrix['y'][1] = 1.0;
-                $this->_matrix['z'][2] = 1.0;
-                $this->_matrix['w'][3] = 1.0;
-            }
+                $this->scale(1);
+            if ($arr_data['preset'] == SELF::SCALE)
+                $this->scale($arr_data['scale']);
+            if ($arr_data['preset'] == SELF::RX)
+                $this->rotate($arr_data['angle'], 'x');
+            if ($arr_data['preset'] == SELF::RY)
+                $this->rotate($arr_data['angle'], 'y');
+            if ($arr_data['preset'] == SELF::RZ)
+                $this->rotate($arr_data['angle'], 'z');
+            if ($arr_data['preset'] == SELF::TRANSLATION)
+                $this->translate($arr_data['vtc']);
+            if ($arr_data['preset'] == SELF::PROJECTION)
+                $this->project($arr_data['fov'], $arr_data['ratio'], $arr_data['near'], $arr_data['far']); 
             if (SELF::$verbose)
                 print("Matrix " . $arr_data['preset'] . " instance constructed\n");
         }
 
         function __toString()
         {
-            return (vsprintf("M | vtcX | vtcY | vtcZ | vtxO\n" .
-                             "-----------------------------\n" .
+            return (vsprintf("M |  vtcX  |  vtcY  |  vtcZ  |  vtxO \n" .
+                             "-------------------------------------\n" .
                              $this->arr_to_string($this->_matrix['x'], 'x') .
                              $this->arr_to_string($this->_matrix['y'], 'y') .
                              $this->arr_to_string($this->_matrix['z'], 'z') .
                              $this->arr_to_string($this->_matrix['w'], 'w')
                              , array()));
+        }
+
+        private function arr_to_string($arr, $name)
+        {
+            return (vsprintf("%s | %6.2f | %6.2f | %6.2f | %6.2f\n", 
+                        array($name, $arr['vctX'], $arr['vctY'], $arr['vctZ'], $arr['vtxO'])));
         }
 
         function __get($name)
@@ -53,11 +63,126 @@
             $this->$name = $value;
         }
 
-        private function arr_to_string($arr, $name)
+        private function initialize_matrix()
         {
-            print_r($arr);
-            return (vsprintf("%s | %0.2f | %0.2f | %0.2f | %0.2f\n", 
-                        array($name, $arr[0], $arr[1], $arr[2], $arr[3])));
+            $this->_matrix = array( 'x' => array('vctX' => 1.0, 'vctY' => 0.0, 'vctZ' => 0.0, 'vtxO' => 0.0),
+                                    'y' => array('vctX' => 0.0, 'vctY' => 1.0, 'vctZ' => 0.0, 'vtxO' => 0.0), 
+                                    'z' => array('vctX' => 0.0, 'vctY' => 0.0, 'vctZ' => 1.0, 'vtxO' => 0.0), 
+                                    'w' => array('vctX' => 0.0, 'vctY' => 0.0, 'vctZ' => 0.0, 'vtxO' => 1.0));
+        }
+
+        private function scale($value)
+        {
+            $this->_matrix['x']['vctX'] *= $value;
+            $this->_matrix['y']['vctY'] *= $value;
+            $this->_matrix['z']['vctZ'] *= $value;
+        }
+
+        private function rotate($angle, $axis)
+        {
+            if ($axis == 'x')
+            {
+                $this->_matrix['x']['vctX'] = 1;
+                $this->_matrix['y']['vctY'] = cos($angle);
+                $this->_matrix['y']['vctZ'] = -sin($angle);
+                $this->_matrix['z']['vctY'] = sin($angle);
+                $this->_matrix['z']['vctZ'] = cos($angle);
+            }
+            else if ($axis == 'y')
+            {
+                $this->_matrix['y']['vctY'] = 1;
+                $this->_matrix['x']['vctX'] = cos($angle);
+                $this->_matrix['x']['vctZ'] = sin($angle);
+                $this->_matrix['z']['vctX'] = -sin($angle);
+                $this->_matrix['z']['vctZ'] = cos($angle);
+            }
+            else if ($axis == 'z')
+            {
+                $this->_matrix['z']['vctZ'] = 1;
+                $this->_matrix['x']['vctX'] = cos($angle);
+                $this->_matrix['x']['vctY'] = -sin($angle);
+                $this->_matrix['y']['vctX'] = sin($angle);
+                $this->_matrix['y']['vctY'] = cos($angle);
+            }
+        }
+
+        private function translate($vct)
+        {
+            $this->_matrix['x']['vtxO'] += $vct->_x;
+            $this->_matrix['y']['vtxO'] += $vct->_y;
+            $this->_matrix['z']['vtxO'] += $vct->_z;
+        }
+
+        private function project($fov, $ratio, $near, $far)
+        {
+            $this->_matrix['y']['vctY'] = 1 / tan(0.5 * deg2rad($fov));
+            $this->_matrix['x']['vctX'] = $this->_matrix['y']['vctY'] / $ratio;
+            $this->_matrix['z']['vctZ'] = -1 * (($far + $new) / ($far - $near));
+            $this->_matrix['z']['vtxO'] = -1 * (2 * $far * $near / ($far - $near));
+            $this->_matrix['w']['vctZ'] = -1;
+            $this->_matrix['w']['vtxO'] = 0;
+        }
+
+        public function mult($rhs)
+        {
+            $arr_columns = array('vctX', 'vctY', 'vctZ', 'vtxO');
+            $arr_rows = array('x', 'y', 'z', 'w');
+            $this_row_index = 0;
+            foreach($this->_matrix as $row)
+            {
+                $column_index = 0;
+                $arr_sum = array(0, 0, 0, 0);
+                foreach($row as $column)
+                {
+                    $sum = 0;
+                    $row_index = 0;
+                    //print("(");
+                    foreach ($row as $a)
+                    {
+                        $row_key = $arr_rows[$row_index];
+                        $column_key = $arr_columns[$column_index];
+                        $b = $rhs->_matrix[$row_key][$column_key];
+                        //print($a . "*[" . $row_key . "][" . $column_key . "]");
+                        //print($a . " * " . $b);
+                        //printf('%5.f * %5.2f', $a, $b);
+                        $sum += $a * $b;
+                        if ($row_index < 3)
+                            //print(" + ");
+                        $row_index++;
+                    }
+                    $arr_sum[$column_index] = $sum;
+                    $column_index++;
+                    //print(") ");
+                }
+                $this->_matrix[$arr_rows[$this_row_index]]['vctX'] = $arr_sum[0];
+                $this->_matrix[$arr_rows[$this_row_index]]['vctY'] = $arr_sum[1];
+                $this->_matrix[$arr_rows[$this_row_index]]['vctZ'] = $arr_sum[2];
+                $this->_matrix[$arr_rows[$this_row_index]]['vtxO'] = $arr_sum[3];
+                $this_row_index++;
+                //print ("\n");
+            }
+            return ($this);
+        }
+
+        public function transformVertex($vtxA)
+        {
+            $vtxB = new Vertex(array('x' => 0, 'y' => 0, 'z' => 0, 'w' => 1, 'color' => $vtxA->_color));
+            $vtxB->_x = $this->get_row_transform($vtxA, 'x');
+            $vtxB->_y = $this->get_row_transform($vtxA, 'y');
+            $vtxB->_z = $this->get_row_transform($vtxA, 'z');
+            $vtxB->_w = $this->get_row_transform($vtxA, 'w');
+            return ($vtxB);
+        }
+
+        private function get_row_transform($vtxA, $row)
+        {
+            $arr_row = $this->_matrix[$row];
+            $x = $vtxA->_x;
+            $y = $vtxA->_y;
+            $z = $vtxA->_z;
+            $w = $vtxA->_w;
+            $sum = $x * $arr_row['vctX'] + $y  * $arr_row['vctY'] + $z  * $arr_row['vctZ'] + $w  * $arr_row['vtxO'];
+            return ($sum);
         }
 
         public static function doc()
