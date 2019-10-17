@@ -23,7 +23,7 @@ print( 'Let\'s start with an harmless identity matrix :' . PHP_EOL );
 $I = new Matrix( array( 'preset' => Matrix::IDENTITY ) );
 print( $I . PHP_EOL . PHP_EOL );
 
-/*print( 'So far, so good. Let\'s create a translation matrix now.' . PHP_EOL );
+print( 'So far, so good. Let\'s create a translation matrix now.' . PHP_EOL );
 $vtx = new Vertex( array( 'x' => 20.0, 'y' => 20.0, 'z' => 0.0 ) );
 $vtc = new Vector( array( 'dest' => $vtx ) );
 $T  = new Matrix( array( 'preset' => Matrix::TRANSLATION, 'vtc' => $vtc ) );
@@ -59,6 +59,7 @@ print( 'This is a model matrix that scales, then rotates around OY axis,' . PHP_
 print( 'then rotates around OX axis and finally translates.' . PHP_EOL );
 print( 'Please note the reverse operations order. It\'s not an error.' . PHP_EOL );
 $M = $T->mult( $RX )->mult( $RY )->mult( $S );
+//$M = $T->mult( $S );
 print( $M . PHP_EOL . PHP_EOL );
 
 print( 'What can you do with a matrix and a vertex ?' . PHP_EOL );
@@ -68,5 +69,4 @@ print( $M . PHP_EOL );
 print( 'Transform the damn vertex !' . PHP_EOL );
 $vtxB = $M->transformVertex( $vtxA );
 print( $vtxB . PHP_EOL . PHP_EOL );
-*/
 ?>

@@ -36,8 +36,8 @@
         function __toString()
         {
             if (SELF::$verbose)
-                return(vsprintf("Vertex( x: %0.2f, y: %0.2f, z:%0.2f w:%0.2f, $this->_color )", array($this->_x, $this->_y, $this->_z, $this->_w, $this->_color)));
-            return(vsprintf("Vertex( x: %0.2f, y: %0.2f, z:%0.2f w:%0.2f )", array($this->_x, $this->_y, $this->_z, $this->_w)));
+                return(vsprintf("Vertex( x: %0.2f, y: %0.2f, z:%0.2f ,w:%0.2f, $this->_color )", array($this->_x, $this->_y, $this->_z, $this->_w, $this->_color)));
+            return(vsprintf("Vertex( x: %0.2f, y: %0.2f, z:%0.2f, w:%0.2f )", array($this->_x, $this->_y, $this->_z, $this->_w)));
         }
 
         function __get($name)
