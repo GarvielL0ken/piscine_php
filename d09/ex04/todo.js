@@ -56,13 +56,3 @@ function removeListItem()
         this.remove();
     }
 }
-
-// function setCookie(){
-//     var cookie = "list_items= ";
-//     cookie = cookie + list_items[0].innerText;
-//     for (var i = 1; i < list_items.length; i++)
-//     {
-//         cookie = cookie + ',' + list_items[i].innerText;
-//     }
-//     document.cookie = cookie;
-// };
