@@ -32,11 +32,10 @@ function promptListItem()
         for (var i = list[0].childElementCount - 1; i >= 0; i--)
         {
             if (list[0].childNodes[i].id != id)
-            {
-                $.get('insert.php?id=' + id + '&value=' + userListItem);
                 break ;
-            }
+            id++;
         }
+        $.get('insert.php?id=' + id + '&value=' + userListItem);
         addListItem(id, userListItem);
     }
 }
