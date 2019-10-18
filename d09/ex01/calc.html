@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>It's over 9000</title>
+        <script>
+            function divide(val_left, val_right)
+            {
+                if (val_right === 0)
+                    return ("It's over 9000!");
+                else
+                    return (val_left / val_right);
+            }
+
+            function modulo(val_left, val_right)
+            {
+                if (val_right === 0)
+                    return ("It's over 9000!");
+                else
+                    return (val_left % val_right);
+            }
+
+            function calc()
+            {
+                var objSelect = document.getElementById('select');
+                var operation = objSelect.options[objSelect.selectedIndex].value;
+                var val_left = Number(document.getElementById('val_left').value);
+                var val_right = Number(document.getElementById('val_right').value);
+                var result = 0;
+                if (val_left < 0 || val_right < 0)
+                    operation = "error";
+                switch (operation)
+                {
+                    case "add":
+                        result = val_left + val_right;
+                        break;
+                    case "subtract":
+                        result = val_left - val_right;
+                        break;
+                    case "multiply":
+                        result = val_left * val_right;
+                        break;
+                    case "divide":
+                        result = divide(val_left, val_right);
+                        break;
+                    case "modulo":
+                        result = modulo(val_left, val_right);
+                        break;
+                    case "error":
+                        result = "Error :(";
+                }
+                console.log(result);
+                alert(result);
+            }
+
+            setInterval(function(){ alert("Please, use me..."); }, 30000);
+       </script>
+    </head>
+    <body>
+        <div class= 'calc'>
+            <input type= 'text' id= 'val_left'>
+            <select id= 'select'>
+                <option value= 'add'>+</option>
+                <option value= 'subtract'>-</option>
+                <option value= 'multiply'>*</option>
+                <option value= 'divide'>/</option>
+                <option value= 'modulo'>%</option>
+            </select>
+            <input type= 'text' id= 'val_right'>
+            <input type= 'submit' value= "Try me!" onclick= 'calc()'>
+        </div>
+    </body>
+</html>

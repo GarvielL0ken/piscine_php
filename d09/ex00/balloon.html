@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ballon</title>
+        <style>
+            .balloon {
+                /* width:  200px; */
+                /* height: 200px; */
+                background-color: red;
+                border-radius: 50%;
+            }
+        </style>
+        <script>
+            var size = 200;
+            var arr_colors = ['red', 'green', 'blue'];
+            var index_color = 0;
+            function enlarge()
+            {
+                size += 10;
+                if (size > 420)
+                    size = 200;
+                    index_color = (index_color + 1) % 3;
+                refresh();
+            }
+
+            function shrink()
+            {
+                size -= 5;
+                if (size < 200)
+                    size = 200;
+                if (--index_color < 0)
+                    index_color = 2;
+                refresh();
+            }
+
+            function refresh()
+            {
+                var balloon = document.querySelector('#balloon');
+                balloon.style.width = size + 'px';
+                balloon.style.height = size + 'px';
+                balloon.style.backgroundColor = arr_colors[index_color];
+            }
+        </script>
+    </head>
+    <body>
+        <div class= "balloon" id="balloon" onclick= "enlarge()" onmouseleave= "shrink()">
+        </div>
+        <script>
+            refresh();
+        </script>
+    </body>
+</html>
