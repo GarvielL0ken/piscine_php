@@ -19,7 +19,7 @@
         $arr_users = get_users();
         foreach ($arr_users as $user)
         {
-            if ($user['login'] == $login && hash('whirlpool', $passwd))
+            if ($user['login'] == $login && $user['passwd'] == hash('whirlpool', $passwd))
                 return TRUE;
         }
         return FALSE;
