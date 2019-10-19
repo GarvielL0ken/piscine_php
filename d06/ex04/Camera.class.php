@@ -8,7 +8,8 @@
         static  $verbose = false;
         private $_origin;
         private $_tT;
-        private $_orientation;
+        private $_tR;
+        private $_Proj;
         private $_width;
         private $_height;
         private $_fov;
@@ -21,12 +22,12 @@
             $vct = new Vector(array('dest' => $this->_origin));
 
             $this->_tT = new Matrix(array("preset" => Matrix::TRANSLATION, 'vtc' => $vct->opposite()));
-            $this->_orientation = $arr_data['orientation'];
-            $this->_width = $arr_data['width'];
-            $this->_height = $arr_data['height'];
-            $this->_fov = $arr_data['fov'];
-            $this->_near = $arr_data['near'];
-            $this->_far = $arr_data['far'];
+            $mtx = $arr_data['orientation'];
+            $this->_tR = new Matrix(array('preset' => $mtx->_preset, 'angle' => $mtx->_angle));
+            $arr_data['preset'] = MATRIX::PROJECTION;
+            $arr_data['fov'] = 60;
+            $arr_data['ratio'] = $arr_data['width'] / $arr_data['height'];
+            $this->_Proj = new MATRIX($arr_data);
 
             if (SELF::$verbose)
                 print("Camera instance constructed\n");
@@ -39,7 +40,19 @@
 
         function __toString()
         {
-            return ("+ Origin: $this->_origin" . "+ tT:\n$this->_tT");
+            $mtx_mult = $this->_tR->mult($this->_tT);
+            return ("Camera(\n" . 
+                    "+ Origin: $this->_origin\n" .
+                    "+ tT:\n" .
+                    "$this->_tT" .
+                    "+ tR:\n" .
+                    "$this->_tR" .
+                    "+ tR->mult( tT ):\n" .
+                    "$mtx_mult" .
+                    "+ Proj:\n" .
+                    "$this->_Proj" .
+                    ")"
+                    );
         }
 
         public static function doc()
