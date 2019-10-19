@@ -9,7 +9,7 @@
         private $_origin;
         private $_tT;
         private $_tR;
-        private $_mtx_mult;
+        private $_tMult;
         private $_Proj;
         private $_width;
         private $_height;
@@ -49,7 +49,7 @@
                     "+ tR:\n" .
                     "$this->_tR" .
                     "+ tR->mult( tT ):\n" .
-                    "$mtx_mult" .
+                    "$this->_tMult" .
                     "+ Proj:\n" .
                     "$this->_Proj" .
                     ")"

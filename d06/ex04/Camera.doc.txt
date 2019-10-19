@@ -1,5 +1,20 @@
 <- Camera ----------------------------------------------------------------------
 The Camera class takes an array of data and from said data creates an origin
 vertex and four matrices:
-    tT: Translation matrix;
+    tT: Translation matrix.
+    tR: Rotation matrix.
+    tMult: The result of the multiplication of tR by tT;
+    Proj: The projection matrix for the camera.
+
+to Create an instance of a camera:
+    $vtxO = new Vertex( array( 'x' => 20.0, 'y' => 20.0, 'z' => 80.0 ) );
+    $R    = new Matrix( array( 'preset' => Matrix::RY, 'angle' => M_PI ) );
+    $cam  = new Camera( array( 'origin' => $vtxO,
+                            'orientation' => $R,
+                            'width' => 640,
+                            'height' => 480,
+                            'fov' => 60,
+                            'near' => 1.0,
+                            'far' => 100.0) );
+    all keys are required.
 ---------------------------------------------------------------------- Camera ->
