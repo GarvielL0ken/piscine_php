@@ -1,0 +1,5 @@
+<- Camera ----------------------------------------------------------------------
+The Camera class takes an array of data and from said data creates an origin
+vertex and four matrices:
+    tT: Translation matrix;
+---------------------------------------------------------------------- Camera ->

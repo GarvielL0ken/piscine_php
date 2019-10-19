@@ -1,2 +1,33 @@
-<- Vector ----------------------------------------------------------------------
----------------------------------------------------------------------- Vector ->
+<- Matrix ----------------------------------------------------------------------
+The Matrix class is used to create various transformation matrices.
+An instance is created by:
+    passing the constructor method a single array. What is required in this
+    array is different based on the one value that the array is always
+    required: the value in the 'preset' key.
+    The preset values are stored as class constants in the Matrix class itself.
+    e.g. $obj = new Matrix(array('preset' => MATRIX::IDENTITY));
+    
+    The preset constants and their required keys are as follows:
+        IDENTITY: none;
+        SCALE: 'scale', an integer/float that is used to scale the matrix;
+        RX, RY, RZ: 'angle, an angle in radians;
+        TRANSLATION: 'vtc, a vector that decribes how the tranlation matrix
+                           should translate vertices;
+        PROJECTION: 'fov', the field of veiw in degrees;
+                    'ratio', the aspect ratio;
+                    'near', the distance to the near clipping plane;
+                    'far', the distance to the far clipping plane;
+
+    The matrix class contains an array arrays that represents the transformation
+    matrix.
+
+    The matrix class provides two puclic methods mult and tranform vertex.
+
+    Mult takes a sinle matrix as argument and returnn a new matrix based
+    on the matrix multiplication of both matrices. It's not that simple to
+    explain how it works so if you want to know use the Googles.
+
+    Tranform vertex takes a vertex and tranforms using the matrix of the
+    matrix instance.
+    
+---------------------------------------------------------------------- Matrix ->

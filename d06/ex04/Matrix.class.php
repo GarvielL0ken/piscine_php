@@ -13,7 +13,7 @@
         const TRANSLATION = 'TRANSLATION';
         const PROJECTION =  'PROJECTION';
         static $verbose =   false;
-        public $preset;
+        private $_preset;
         private $_matrix;
         private $_scale;
         private $_angle;
@@ -141,7 +141,7 @@
 
         private function get_data()
         {
-            $arr_data = array('preset' => $this->preset);
+            $arr_data = array('preset' => $this->_preset);
             $preset = $arr_data['preset'];
             if ($preset == MATRIX::SCALE)
                 $arr_data['scale'] = $this->_scale;
@@ -156,11 +156,12 @@
                 $arr_data['near'] = $this->_near;
                 $arr_data['far'] = $this->_far;
             }
+            return ($arr_data);
         }
 
         public function mult($rhs)
         {
-            $array_data = $this->get_data();
+            $arr_data = $this->get_data();
             $new_matrix = new Matrix($arr_data);
             $arr_columns = array('vctX', 'vctY', 'vctZ', 'vtxO');
             $arr_rows = array('x', 'y', 'z', 'w');

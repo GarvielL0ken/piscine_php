@@ -1,9 +1,9 @@
 <- Vector ----------------------------------------------------------------------
 The Vector class has five attributes/properties:
-    _x:     The x co-ordinate of a vector.
-    _y:     The y co-ordinate of a vector.
-    _z:     The z co-ordinate of a vector.
-    _w:     The w co-ordinate of a vector.
+    _x:     The x magnitude of a vector.
+    _y:     The y magnitude of a vector.
+    _z:     The z magnitude of a vector.
+    _w:     The w magnitude of a vector.
 
     All of the above attributes are private (hence the '_' prefix) and as such 
     all attributes are accessible via the 'magic' __get() method. No write
@@ -14,4 +14,51 @@ The Vector class has five attributes/properties:
     The default value for 'orig' is an  instance of a Vertex (0, 0, 0, 1).
 
     eg. $vertex = new Vector(array('dest' => $vert_dest, 'orig' => $vert_orig))
+
+The Vector class provides the following methods:
+    magnitude():        Calculates the magnitude of the vector. return is
+                        always positive (the absolute value).
+    
+    normalize():        Returns the unit vector for the current vector. A unit
+                        vector is a vector which has a magnitude of one.       
+    
+    add($vect):         Adds the current vector and $vect together and 
+                        returns a new vector.        
+    
+    sub($vect):         Subtracts $vect from $this and returns a new Vector. 
+    
+    opposite():         Returns a new vector whose value is equal to $this
+                        vector but whose direction is opposite to
+                        $this vector.
+    
+    scalarProduct($k):  Actually the scalar multiple of a vector and a constant.
+                        This has the effect of multiplying the magnitude of the
+                        vector whilst keeping the magnitude the same. It must
+                        be noted that this returns a new vector.
+                        The subject pdf was/is stupid and asks for both the 
+                        scalarProduct and dotProduct(see below) which are 
+                        exactly the same things. 
+    
+    dotProduct($rhs):   Takes a single vector. Calculates the products of each
+                        component vector of each vector. It then returns the 
+                        sum of those products. 
+                        
+                        e.g. Let's say our two vectors are A and B then:
+                        each product (prod.axis) is (A.axis * B.axis) 
+                            e.g. (prod.x) = (A.x * B.x)
+                        Then the sum is (prod.x + prod.y + prod.z).
+                        All in all:
+                        return ((A.x * B.x) + (A.y * B.y) + (A.z * B.z));
+    
+    cos($rhs):          Takes a single vector as argument. Returns the cosine
+                        between two vectors. 
+                        
+                        To calculate this, divide the dotProduct of the two
+                        vectors by the product of both vectors magnitudes.   
+    
+    crossProduct($rhs): Takes a single vector as argument. Returns the 
+                        crossProduct of both vectors; I'm not gonna take the
+                        time to explain crossProduct here. If you're intrested
+                        or need to know use the Googles.
+
 ---------------------------------------------------------------------- Vector ->

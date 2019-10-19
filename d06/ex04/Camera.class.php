@@ -9,6 +9,7 @@
         private $_origin;
         private $_tT;
         private $_tR;
+        private $_mtx_mult;
         private $_Proj;
         private $_width;
         private $_height;
@@ -28,6 +29,7 @@
             $arr_data['fov'] = 60;
             $arr_data['ratio'] = $arr_data['width'] / $arr_data['height'];
             $this->_Proj = new MATRIX($arr_data);
+            $this->_mtx_mult = $this->_tR->mult($this->_tT);
 
             if (SELF::$verbose)
                 print("Camera instance constructed\n");
@@ -40,7 +42,6 @@
 
         function __toString()
         {
-            $mtx_mult = $this->_tR->mult($this->_tT);
             return ("Camera(\n" . 
                     "+ Origin: $this->_origin\n" .
                     "+ tT:\n" .
