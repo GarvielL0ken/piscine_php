@@ -2,7 +2,7 @@ var list_index = 0;
 
 $(document).ready(function() 
 {
-    $("button").click();
+    $("button").click(promptListItem);
     list = $("#ft_list");
     createList;
     $.get('select.php', function(data){
@@ -23,12 +23,22 @@ function createList(list_str)
     }
 }
 
-// function promptListItem()
-// {
-//     var userListItem = prompt("Enter a new item for the to do list", "skydiving");
-//     if (userListItem != null && userListItem != '')
-//         addListItem(userListItem);
-// }
+function promptListItem()
+{
+    var userListItem = prompt("Enter a new item for the to do list", "skydiving");
+    if (userListItem != null && userListItem != '')
+    {
+        var id = 0;
+        for (var i = list[0].childElementCount - 1; i >= 0; i--)
+        {
+            if (list[0].childNodes[i].id != id)
+                break ;
+            id++;
+        }
+        $.get('insert.php?id=' + id + '&value=' + userListItem);
+        addListItem(id, userListItem);
+    }
+}
 
 function addListItem(strId, userListItem)
 {
@@ -44,16 +54,5 @@ function removeListItem()
     {
         $.get('delete.php?id=' + this.id);
         this.remove();
-        
     }
 }
-
-// function setCookie(){
-//     var cookie = "list_items= ";
-//     cookie = cookie + list_items[0].innerText;
-//     for (var i = 1; i < list_items.length; i++)
-//     {
-//         cookie = cookie + ',' + list_items[i].innerText;
-//     }
-//     document.cookie = cookie;
-// };
