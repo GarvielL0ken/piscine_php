@@ -15,7 +15,7 @@ function createList(list_str)
         arr_text = list_str.split("\n");
         for (var i = arr_text.length - 1; i >= 0; i--)
         {
-            var item_str = arr_text[i].split(';');
+            var item_str = CSVtoArray(arr_text[i]);
             addListItem(item_str[0], item_str[1]);
         }
     }
@@ -51,3 +51,18 @@ function removeListItem()
         this.remove();
     }
 }
+
+function CSVtoArray(text) {
+    var re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^;'"\s\\]*(?:\s+[^;'"\s\\]+)*)\s*(?:;\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^;'"\s\\]*(?:\s+[^;'"\s\\]+)*)\s*)*$/;
+    var re_value = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^;'"\s\\]*(?:\s+[^;'"\s\\]+)*))\s*(?:;|$)/g;
+    if (!re_valid.test(text)) return null;
+    var a = [];
+    text.replace(re_value, function(m0, m1, m2, m3) {
+            if      (m1 !== undefined) a.push(m1.replace(/\\'/g, "'"));
+            else if (m2 !== undefined) a.push(m2.replace(/\\"/g, '"'));
+            else if (m3 !== undefined) a.push(m3);
+            return '';
+        });
+    if (/;\s*$/.test(text)) a.push('');
+    return a;
+};
