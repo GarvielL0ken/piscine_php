@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>It's over 9000</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() 
+            {
+                $("#submit").click(calc);
+                select = $("#select");
+                text_left = $("#val_left");
+                text_right = $('#val_right');
+                setInterval(function(){ alert("Please, use me..."); }, 30000);
+            });
+
+            function calc()
+            {
+                var operation = select[0].value;
+                var val_left = Number(text_left[0].value);
+                var val_right = Number(text_right[0].value);
+                var result = 0;
+                if (val_left < 0 || val_right < 0)
+                    operation = "error";
+                switch (operation)
+                {
+                    case "add":
+                        result = val_left + val_right;
+                        break;
+                    case "subtract":
+                        result = val_left - val_right;
+                        break;
+                    case "multiply":
+                        result = val_left * val_right;
+                        break;
+                    case "divide":
+                        result = divide(val_left, val_right);
+                        break;
+                    case "modulo":
+                        result = modulo(val_left, val_right);
+                        break;
+                    case "error":
+                        result = "Error :(";
+                }
+                console.log(result);
+                alert(result);
+            }
+            
+            function divide(val_left, val_right)
+            {
+                if (val_right === 0)
+                    return ("It's over 9000!");
+                else
+                    return (val_left / val_right);
+            }
+
+            function modulo(val_left, val_right)
+            {
+                if (val_right === 0)
+                    return ("It's over 9000!");
+                else
+                    return (val_left % val_right);
+            }
+
+            
+       </script>
+    </head>
+    <body>
+        <div class= 'calc'>
+            <input type= 'text' id= 'val_left'>
+            <select id= 'select'>
+                <option value= 'add'>+</option>
+                <option value= 'subtract'>-</option>
+                <option value= 'multiply'>*</option>
+                <option value= 'divide'>/</option>
+                <option value= 'modulo'>%</option>
+            </select>
+            <input type= 'text' id= 'val_right'>
+            <input type= 'submit' id= 'submit' value= "Try me!">
+        </div>
+    </body>
+</html>
