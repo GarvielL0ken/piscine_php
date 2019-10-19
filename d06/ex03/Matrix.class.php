@@ -117,7 +117,7 @@
         {
             $this->_matrix['y']['vctY'] = 1 / tan(0.5 * deg2rad($fov));
             $this->_matrix['x']['vctX'] = $this->_matrix['y']['vctY'] / $ratio;
-            $this->_matrix['z']['vctZ'] = -1 * (($far + $new) / ($far - $near));
+            $this->_matrix['z']['vctZ'] = -1 * (($far + $near) / ($far - $near));
             $this->_matrix['z']['vtxO'] = -1 * (2 * $far * $near / ($far - $near));
             $this->_matrix['w']['vctZ'] = -1;
             $this->_matrix['w']['vtxO'] = 0;
