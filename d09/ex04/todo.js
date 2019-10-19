@@ -19,6 +19,7 @@ function createList(list_str)
         {
             var item_str = arr_text[i].split(';');
             addListItem(item_str[0], item_str[1]);
+            list_index++;
         }
     }
 }
@@ -28,7 +29,8 @@ function promptListItem()
     var userListItem = prompt("Enter a new item for the to do list", "skydiving");
     if (userListItem != null && userListItem != '')
     {
-        var id = list[0].childNodes[0].id + 1;
+        var id = list_index;
+        list_index++;
         $.get('insert.php?id=' + id + '&value=' + userListItem);
         addListItem(id, userListItem);
     }
