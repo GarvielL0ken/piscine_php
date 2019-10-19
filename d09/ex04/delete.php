@@ -25,7 +25,7 @@ if (isset($_GET["id"]))
         print("Key Not Found" . PHP_EOL);
 }
 else
-    print("Invalid ID" . PHP_EOL);
+    print("No ID" . PHP_EOL);
 
 
 ?>
