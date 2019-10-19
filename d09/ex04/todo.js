@@ -28,13 +28,7 @@ function promptListItem()
     var userListItem = prompt("Enter a new item for the to do list", "skydiving");
     if (userListItem != null && userListItem != '')
     {
-        var id = 0;
-        for (var i = list[0].childElementCount - 1; i >= 0; i--)
-        {
-            if (list[0].childNodes[i].id != id)
-                break ;
-            id++;
-        }
+        var id = list[0].childNodes[0].id + 1;
         $.get('insert.php?id=' + id + '&value=' + userListItem);
         addListItem(id, userListItem);
     }
