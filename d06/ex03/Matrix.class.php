@@ -141,7 +141,6 @@
 
         private function get_data()
         {
-            print("preset = " . $this->_preset . "\n");
             $arr_data = array('preset' => $this->_preset);
             $preset = $arr_data['preset'];
             if ($preset == MATRIX::SCALE)
@@ -157,7 +156,6 @@
                 $arr_data['near'] = $this->_near;
                 $arr_data['far'] = $this->_far;
             }
-            print_r($arr_data);
             return ($arr_data);
         }
 
