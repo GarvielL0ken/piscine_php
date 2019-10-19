@@ -26,7 +26,7 @@ function promptListItem()
     var userListItem = prompt("Enter a new item for the to do list", "skydiving");
     if (userListItem != null && userListItem != '')
     {
-        if (list[0].childNodes[0].id != null)
+        if (list[0].childNodes[0] != null)
             var id = parseInt(list[0].childNodes[0].id) + 1;
         else
             id = 0;
