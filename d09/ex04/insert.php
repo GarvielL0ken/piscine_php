@@ -11,7 +11,6 @@ function getcsv($id, $value)
 if (isset($_GET["id"]) && isset($_GET["value"]))
 {
     $lines = file('list.csv');
-    $i = 0;
 
     foreach ($lines as $key => $line) {
         $lines[$key] = trim($line, "\n");
@@ -19,10 +18,7 @@ if (isset($_GET["id"]) && isset($_GET["value"]))
 
     $csvline = trim(getcsv($_GET["id"], $_GET["value"]), "\n");
 
-    while (str_getcsv($lines[$i], ";")[0] > $_GET["id"])
-        $i++;
-
-    array_splice($lines, $i, 0, $csvline);
+    array_splice($lines, 0, 0, $csvline);
     file_put_contents('list.csv', implode(PHP_EOL, $lines));
     print("OK" . PHP_EOL);
 }
